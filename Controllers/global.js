@@ -49,6 +49,36 @@ const db = getFirestore(app);
 export const analytics = getAnalytics();
 export const auth = getAuth(app)
 
+document.addEventListener('DOMContentLoaded', function() {
+  const Login = document.getElementById('Login');
+  if (Login) {
+      Login.addEventListener('click', function(e) {
+        signInWithRedirect(auth, googleProvider);
+
+        getRedirectResult(auth)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access Google APIs.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+      
+          // The signed-in user info.
+          const user = result.user;
+          // IdP data available using getAdditionalUserInfo(result)
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.customData.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+      });
+  }
+});
+
 // Metod de inicio de sesion
 export const loginvalidation=(email, password)=>
 signInWithEmailAndPassword(auth, email, password)
