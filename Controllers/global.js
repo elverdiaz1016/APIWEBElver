@@ -2,6 +2,13 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
 
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js';
+
+import { 
+  getFirestore,
+  collection, 
+  addDoc,
+  
+} from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -33,8 +40,12 @@ const firebaseConfig = {
 export const facebookProvider = new FacebookAuthProvider();
 //Google
 export const googleProvider = new GoogleAuthProvider();
+
+// Initialize Cloud Firestore and get a reference to the service
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 export const analytics = getAnalytics();
 export const auth = getAuth(app)
 
@@ -77,3 +88,12 @@ export function observador(){
   });
   
 }
+//Services Firestore
+//Registrar uan coleccion de datos
+export const AddData= (first, last, born )=> 
+    addDoc(collection(db, "users"), {
+    first,
+    last,
+    born
+
+    });
