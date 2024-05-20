@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../Styles/style.css">
+    <title>Registro</title>
+    <link rel="stylesheet" href="../Styles/style_register.css">
 </head>
 <body>
     <div class="login-box">
         <img class="avatar" src="../Resources/images/logo.jpg" alt="Logo">
         <h1>Registrar</h1>
         <div>
-            <label >Nombre de Usuario</label>
-            <input id="edtusername" type="text" placeholder="Ingrese Nombre de Usuario">
-            <label >Contraseña</label>
-            <input id="edtpassword" type="password" placeholder="Ingrese la Contraseña">
-            <input type="submit" id="btnadd" value="Registrar" href="../index.html">
-            <a href="../index.html">Atras</a><br>
+            <label>Cédula</label>
+            <input class="espacios" id="cedula" type="text" placeholder="Ingrese su cédula">
+            <label>Nombre Completo</label>
+            <input class="espacios" id="nombre" type="text" placeholder="Ingrese su nombre completo">
+            <label>Fecha de Nacimiento</label>
+            <input class="espacios" id="fecha_nacimiento" type="date" placeholder="Ingrese su fecha de nacimiento">
+            <label>Dirección</label>
+            <input class="espacios" id="direccion" type="text" placeholder="Ingrese su dirección">
+            <label>Teléfono</label>
+            <input class="espacios" id="celular" type="tel" placeholder="Ingrese su teléfono">
+            <label>Email</label>
+            <input class="espacios" id="email" type="email" placeholder="Ingrese su email">
+            <label>Confirmar Email</label>
+            <input class="espacios" id="confirmemail" type="email" placeholder="Confirme su email">
+            <label>Contraseña</label>
+            <input class="espacios" id="password" type="password" placeholder="Ingrese su contraseña">
+            <label>Confirmar Contraseña</label>
+            <input class="espacios" id="confirmpassword" type="password" placeholder="Confirme su contraseña">
             
+            <button class="agregar" type="submit" id="btnadd">Registrar</button>
+            <a href="../index.html">Atras</a><br>
         </div>
     </div>
     <script type="module" src="../Controllers/user_register.js"></script>

@@ -3,49 +3,58 @@ import { User_Register, everification } from "../Controllers/global.js";
 
 const agregar = document.getElementById('btnadd')
 
-function validarContraseña(contraseña) {
-    // Debe contener al menos un número
-    const tieneNumero = /\d/.test(contraseña);
-    // Debe contener al menos una letra mayúscula
-    const tieneMayuscula = /[A-Z]/.test(contraseña);
-    // Debe contener al menos un carácter especial
-    const tieneCaracterEspecial = /[!@#$%^&*]/.test(contraseña);
-    // Debe tener al menos 8 caracteres de longitud
-    const tieneLongitudValida = contraseña.length >= 8;
 
-    return tieneNumero && tieneMayuscula && tieneCaracterEspecial && tieneLongitudValida;
-}
-
-async function registrar()
-{
-    if (window.verificar  === true) {
-    const email = document.getElementById("edtusername").value;
-    const pass= document.getElementById("edtpassword").value;
+async function registrar() {
+    const cedula = document.getElementById("cedula").value;
+    const nombre_completo = document.getElementById("nombre").value;
+    const fecha_nacimiento = document.getElementById("fecha_nacimiento").value;
+    const direccion = document.getElementById("direccion").value;
+    const celular = document.getElementById("celular").value;
+    const email = document.getElementById("email").value;
+    const confirmEmail = document.getElementById("confirmemail").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmpassword").value;
 
 
-    if (!validarContraseña(contraseñaInput)) {
-        alert("La contraseña debe contener al menos un número, una letra mayúscula, un carácter especial como (!@#$%^&*) y tener al menos 8 caracteres de longitud.");
+    if (!cedula || !nombre_completo || !fecha_nacimiento || !direccion || !celular || !email || !password) {
+        alert('Por favor, completa todos los campos.');
         return;
     }
-    if (email.trim() === '' || pass.trim() === '') {
-        alert('Por favor, completa todos los campos.');
-        return; 
+
+
+    if (email !== confirmEmail) {
+        alert('Los emails no coinciden.');
+        return;
     }
 
-    const verificar = User_Register(email, pass);
+    
+    if (password !== confirmPassword) {
+        alert('Las contraseñas no coinciden.');
+        return;
+    }
+
+    
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        alert('La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.');
+        return;
+    }
+
+    const verificar = User_Register(cedula, nombre_completo, fecha_nacimiento, direccion, celular, email, password);
     const validation = await verificar;
-    // const esperar = await ;
 
     if (validation != null) {
-        everification()
-        alert('Register sucessfull: ' + email);
+        everification();
+        alert('Usuario Registrado ' + email);
         window.location.href = '../index.html';
     } else {
-        alert('Error: Register no sucessfull.');
+        alert('Error: No se pudo registrar');
         console.log('Sesión ' + email + ' no validada.');
     }
 }
-}
+
+
+
 
 window.addEventListener('DOMContentLoaded', async () => {
     agregar.addEventListener('click', registrar);

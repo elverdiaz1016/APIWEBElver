@@ -1,4 +1,5 @@
-import { googleProvider, loginvalidation, signInWithGoogle, signInWithFacebook, recoverPassword } from "../Controllers/global.js";
+import {loginvalidation, signInWithGoogle, signInWithFacebook, recoverPassword} from "../Controllers/global.js";
+
 
 const loginin = document.getElementById("login-btn");
 const eventGoogle =  document.getElementById("googleLogin")
@@ -7,25 +8,39 @@ const eventRecover = document.getElementById("btnRecover")
 
 async function validar() {
     const email = document.getElementById("edtusername").value;
-    const pass= document.getElementById("edtpassword").value;
-
+    const pass = document.getElementById("edtpassword").value;
 
     if (email.trim() === '' || pass.trim() === '') {
         alert('Por favor, completa todos los campos.');
         return; 
     }
 
-    const verificar = loginvalidation(email, pass);
-    const validation = await verificar;
-
-    if (validation != null) {
-        alert('Autenticación exitosa para: ' + email);
-        window.location.href = '../Templates/home.html';
-    } else {
-        alert('Error: autenticación fallida.');
-        console.log('Sesión ' + email + ' no validada.');
+    try {
+        const validation = await loginvalidation(email, pass);
+        if (email === 'admin@gmail.com' && pass === '123456789') {
+            // Si las credenciales corresponden a la cuenta de administrador
+            alert('Autenticación exitosa para: ' + email);
+            window.location.href = '../Templates/home_admin.html';
+        } else {
+            // Si las credenciales corresponden a una cuenta de usuario normal
+            alert('Autenticación exitosa para: ' + email);
+            window.location.href = '../Templates/home.html';
+        }
+    } catch (error) {
+        if (error.message === 'Email not verified') {
+            alert('Por favor, verifica tu email antes de iniciar sesión.');
+        } else {
+            alert('Error: autenticación fallida.');
+            console.log('Sesión ' + email + ' no validada.');
+        }
     }
 }
+
+
+
+
+
+
 async function validarFacebook(){
     const verificar = signInWithFacebook()
     const validation = await verificar 
@@ -39,6 +54,8 @@ async function validarFacebook(){
     }
 }
 
+
+ 
 async function validarGoogle(){
     const verificar = signInWithGoogle()
     const validation = await verificar 
@@ -76,5 +93,4 @@ document.addEventListener('DOMContentLoaded', async => {
 })
 window.addEventListener('DOMContentLoaded', async () => {
     eventRecover.addEventListener('click', Recover);
-    googleProvider
 });

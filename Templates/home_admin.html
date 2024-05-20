@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido Admin</title>
+    <link rel="stylesheet" href="../Styles/home_admin.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido Admin</h1>
+    </header>
+    <div class="container">
+        <h2>Agregar nuevo usuario</h2>
+        <label>Cédula</label>
+        <input id="newUserCedula" type="text" placeholder="Ingrese la cédula del nuevo usuario" >
+        <label>Nombre Completo</label>
+        <input id="newUserFullname" type="text" placeholder="Ingrese el nombre completo del nuevo usuario" >
+        <label>Fecha de Nacimiento</label>
+        <input id="newUserBirthdate" type="date" placeholder="Ingrese la fecha de nacimiento del nuevo usuario" >
+        <label>Dirección</label>
+        <input id="newUserAddress" type="text" placeholder="Ingrese la dirección del nuevo usuario">
+        <label>Teléfono</label>
+        <input id="newUserPhone" type="tel" placeholder="Ingrese el teléfono del nuevo usuario">
+        <label>Email</label>
+        <input id="newUserEmail" type="email" placeholder="Ingrese el email del nuevo usuario">
+        <label>Contraseña</label>
+        <input id="newUserPassword" type="password" placeholder="Ingrese la contraseña del nuevo usuario">
+        <button id="addUserButton">Agregar usuario</button>
+
+        <button id="deleteAccount" >Eliminar cuenta</button>
+        <button id="btnlogout" >Cerrar sesion</button>
+            <a  class="boton2" href="/Templates/recoverypass.html" class="Atras">Recuperar Contraseña</a>
+            <a class="boton2" href="/Templates/lista.html" class="Atras">Ver usuarios</a>
+        
+
+    </div>
+    
+    <script type="module" src="../Controllers/home_admin.js"></script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js';
-
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js';
 
 import { 
@@ -9,11 +8,7 @@ import {
   addDoc,
   
 } from 'https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 import { 
   getAuth,
   signInWithEmailAndPassword,
@@ -80,8 +75,25 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Metod de inicio de sesion
-export const loginvalidation=(email, password)=>
-signInWithEmailAndPassword(auth, email, password)
+export const loginvalidation = async (email, password) => {
+  try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      // Si las credenciales corresponden a la cuenta de administrador, no verificar el correo electrónico
+      if (email === 'admin@gmail.com' && password === '123456789') {
+          return user;
+      } else if (user.emailVerified) {
+          return user;
+      } else {
+          throw new Error('Email not verified');
+      }
+  } catch (error) {
+      console.error(error);
+      throw error; // Lanza el error para que pueda ser capturado en validar()
+  }
+}
+
+
 
 
 export const everification= ()=> 
@@ -93,8 +105,28 @@ export const logout=()=>signOut(auth)
 
 
 
-export const User_Register= (email,password)=>
-createUserWithEmailAndPassword(auth,email,password)
+export const User_Register = (cedula, nombre_completo, fecha_nacimiento, direccion, celular, email, password) =>
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      // ...
+      return addDoc(collection(db, "users"), {
+        cedula,
+        nombre_completo,
+        fecha_nacimiento,
+        direccion,
+        celular,
+        email
+      });
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+  
+      // ..
+    });
+
 
 
 export const signInWithGoogle = () => 
@@ -118,12 +150,18 @@ export function observador(){
   });
   
 }
-//Services Firestore
-//Registrar uan coleccion de datos
-export const AddData= (first, last, born )=> 
-    addDoc(collection(db, "users"), {
-    first,
-    last,
-    born
 
-    });
+export async function mostrarUsuarios() {
+  const userList = document.getElementById('userList');
+  userList.innerHTML = '';
+  const userCollection = collection(db, 'users');
+  const userSnapshot = await getDocs(userCollection);
+  userSnapshot.docs.forEach((doc) => {
+    const userData = doc.data();
+    const li = document.createElement('li');
+    li.textContent = `Cédula: ${userData.cedula}, Nombre: ${userData.nombre_completo}, Fecha de Nacimiento: ${userData.fecha_nacimiento}, Dirección: ${userData.direccion}, Celular: ${userData.celular}, Email: ${userData.email}`;
+    userList.appendChild(li);
+  });
+}
+
+export {db}; 
