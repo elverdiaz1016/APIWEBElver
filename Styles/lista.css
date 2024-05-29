@@ -1,13 +1,112 @@
-.user-element {
-    border: 1px solid #000;
-    margin: 10px;
-    padding: 10px;
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+.tittle
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    height: 50px;
+    margin: 1em;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: .5em;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
-.user-element:nth-child(even) {
-    background-color: #f2f2f2;
+/* User List Container */
+#userList {
+    max-width: 800px;
+    margin: 50px auto;
+    margin-bottom: 0;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-button
-{
-    background-color: rgb(144, 144, 202);
+
+/* User Element */
+.user-element {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* User Info */
+.user-element div {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+/* Buttons */
+.user-element button {
+    align-self: flex-start;
+    padding: 8px 12px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #fff;
+    background: #007bff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin: .5em;
+}
+.container__volver {
+    display: flex;
+    justify-content: end;
+    margin: 20px 0;
+}
+
+/* Button Styles */
+.volver {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 9em;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+/* Hover Effect for Button */
+.volver:hover {
+    background-color: #0056b3;
+}
+
+/* Link Styles within the Button */
+.volver a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Ensure link takes full button area */
+.volver a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 100%;
+}
+
+.user-element button:hover {
+    background: #0056b3;
+}
+
+.user-element button:nth-child(2) {
+    background: #dc3545;
+}
+
+.user-element button:nth-child(2):hover {
+    background: #c82333;
 }

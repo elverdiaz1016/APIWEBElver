@@ -1,19 +1,20 @@
-import {observador, logout, auth,  User_Register} from "./global.js"; 
+import { observador, logout, auth, User_Register } from "./global.js"; 
 
-observador()
-const cerrar=document.getElementById('btnlogout')
+observador();
+
+const cerrar = document.getElementById('btnlogout');
 const addUserButton = document.getElementById("addUserButton"); 
 const mostrar = document.getElementById("mostrar_usuario");
 
-async function sesion(){
-    const validar=logout()
-    const verificar=await validar
+async function sesion() {
+    const validar = logout();
+    const verificar = await validar
     .then((verificar) => {
-        alert('sesion cerrada')
-        window.location.href='../index.html'
-      }).catch((error) => {
-        alert('Sesion no cerrada')
-      });
+        alert('Sesión cerrada');
+        window.location.href = '../index.html';
+    }).catch((error) => {
+        alert('Sesión no cerrada');
+    });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -62,15 +63,23 @@ async function addUser() {
     try {
         const user = await User_Register(cedula, fullname, birthdate, address, phone, email, password);
         alert('Usuario agregado exitosamente: ' + email);
+
+        // Vaciar los campos del formulario después de agregar el usuario
+        document.getElementById("newUserCedula").value = '';
+        document.getElementById("newUserFullname").value = '';
+        document.getElementById("newUserBirthdate").value = '';
+        document.getElementById("newUserAddress").value = '';
+        document.getElementById("newUserPhone").value = '';
+        document.getElementById("newUserEmail").value = '';
+        document.getElementById("newUserPassword").value = '';
+
     } catch (error) {
         console.error(error);
         alert('Error al agregar el usuario.');
     }
 }
 
-
-
 window.addEventListener('DOMContentLoaded', async () => {
-    cerrar.addEventListener('click',sesion)
+    cerrar.addEventListener('click', sesion);
     addUserButton.addEventListener('click', addUser); 
 });

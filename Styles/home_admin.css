@@ -29,7 +29,7 @@ header {
 }
 
 .container input {
-    width: 100%; 
+    width: 90%; 
     padding: 10px; 
     margin-bottom: 20px; 
     border-radius: 5px; 
@@ -43,7 +43,6 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    width: 100%; 
     margin-bottom: 1em;
 }
 .boton2{
@@ -53,8 +52,8 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
-    width: 100%; 
     text-align: center;
+    text-decoration: none;
 }
 
 button:hover {
